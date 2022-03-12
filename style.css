@@ -1,0 +1,16 @@
+body {
+  background: #777;
+  /*display: flex;
+  align-items: center;
+  justify-content: center;*/
+}
+/*Делаем границу вокруг игрового поля*/
+canvas {
+  border: 1px solid white;
+  margin: 0 auto;
+  background-color: #368CBA;
+}
+
+.block{
+  text-align: center;
+}
