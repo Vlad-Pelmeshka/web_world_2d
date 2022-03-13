@@ -100,86 +100,40 @@ if(!(isset($_GET['beach_mod'])) || !(isset($_GET['mod'])) || !(isset($_GET['leve
 		</form>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script>
-		// Размер одной клеточки на поле
-		var grid = <?php echo $grid ?>;
-
-		// Размер поля, задается в data.php
-		var width = <?php echo $width ?>;
-		var height = <?php echo $height ?>;
-
-		// свойства карты
-		var grid_mod = <?php echo $_GET['grid_mod'] ?>;
-		var beach_mod = <?php echo $_GET['beach_mod'] ?>;
-		var mod = <?php echo $_GET['mod'] ?>;
-		var level_mod = <?php echo $_GET['level_mod'] ?>;
-		/*
-			0 - Материк
-				13 - огромный
-				12 - большой
-				11 - средний
-				10 - остров
-			1 - Озера с островани
-				13 - огромный
-				12 - идеальный
-				11 - малая пангея
-				10 - острова
-			2 - Пангея
-				16 - огромный озерный континент
-				15 - озерный континент
-				14 - малые континенты
-				13 - острова
-				12 - редкие острова
-			3 - Пангея+
-				14 - Большой
-				13 - Идеальный
-				12 - Компактный
-				11 - Дуельный
-			4 - Без озёр
-				20 - Огромный
-				19 - Большой
-				17 - Средний
-				16 - Маленький
-				15 - Компактный
-				14 - Дуельный
-
-		 */
-
-	</script>
 	<script src="script.js"></script>
 	<script>
-    function addOnWheel(elem, handler) {
-      if (elem.addEventListener) {
-        if ('onwheel' in document) {
-          // IE9+, FF17+
-          elem.addEventListener("wheel", handler);
-        } else if ('onmousewheel' in document) {
-          // устаревший вариант события
-          elem.addEventListener("mousewheel", handler);
-        } else {
-          // 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
-          elem.addEventListener("MozMousePixelScroll", handler);
-        }
-      } else { // IE8-
-        game.attachEvent("onmousewheel", handler);
-      }
-    }
+	    function addOnWheel(elem, handler) {
+	      if (elem.addEventListener) {
+	        if ('onwheel' in document) {
+	          // IE9+, FF17+
+	          elem.addEventListener("wheel", handler);
+	        } else if ('onmousewheel' in document) {
+	          // устаревший вариант события
+	          elem.addEventListener("mousewheel", handler);
+	        } else {
+	          // 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
+	          elem.addEventListener("MozMousePixelScroll", handler);
+	        }
+	      } else { // IE8-
+	        game.attachEvent("onmousewheel", handler);
+	      }
+	    }
 
-    var scale = 1;
+	    var scale = 1;
 
-    addOnWheel(game, function(e) {
+	    addOnWheel(game, function(e) {
 
-      var delta = e.deltaY || e.detail || e.wheelDelta;
+	      var delta = e.deltaY || e.detail || e.wheelDelta;
 
-      // отмасштабируем при помощи CSS
-      if (delta > 0) scale += 0.05;
-      else scale -= 0.05;
+	      // отмасштабируем при помощи CSS
+	      if (delta > 0) scale += 0.05;
+	      else scale -= 0.05;
 
-      game.style.transform = game.style.WebkitTransform = game.style.MsTransform = 'scale(' + scale + ')';
+	      game.style.transform = game.style.WebkitTransform = game.style.MsTransform = 'scale(' + scale + ')';
 
-      // отменим прокрутку
-      e.preventDefault();
-    });
+	      // отменим прокрутку
+	      e.preventDefault();
+	    });
 
   </script>
 </body>
