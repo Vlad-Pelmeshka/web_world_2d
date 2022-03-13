@@ -1,7 +1,7 @@
 <?php include "data.php";
 
-if(!(isset($_GET['beach_mod'])) or !(isset($_GET['mod'])) or !(isset($_GET['level_mod']))){
-	echo "<script>location.replace('/index.php?beach_mod=0&mod=0&level_mod=12');</script>";
+if(!(isset($_GET['beach_mod'])) || !(isset($_GET['mod'])) || !(isset($_GET['level_mod'])) || !(isset($_GET['grid_mod']))){
+	echo "<script>location.replace('/index.php?beach_mod=0&grid_mod=0&mod=0&level_mod=12');</script>";
 }
 
  ?>
@@ -20,6 +20,7 @@ if(!(isset($_GET['beach_mod'])) or !(isset($_GET['mod'])) or !(isset($_GET['leve
 		<form action="">
 			<?php
 
+			$grid_mod_arr = array('Убрать сетку','Добавить сетку');
 			$beach_mod_arr = array('Убрать песок','Добавить песок');
 			$mod_arr = array(
 				0 => 'Материк',
@@ -64,6 +65,13 @@ if(!(isset($_GET['beach_mod'])) or !(isset($_GET['mod'])) or !(isset($_GET['leve
 			);
 
 			?>
+			<select name="grid_mod" >
+				<?php foreach ($grid_mod_arr as $key => $value){
+					echo '<option value="' . $key . '"';
+					echo ($_GET['grid_mod'] == $key) ? ' selected' : '';
+					echo '>' . $value . '</option>';
+				} ?>
+			</select>
 			<select name="beach_mod" >
 				<?php foreach ($beach_mod_arr as $key => $value){
 					echo '<option value="' . $key . '"';
@@ -98,6 +106,7 @@ if(!(isset($_GET['beach_mod'])) or !(isset($_GET['mod'])) or !(isset($_GET['leve
 		var height = <?php echo $height ?>;
 
 		// свойства карты
+		var grid_mod = <?php echo $_GET['grid_mod'] ?>;
 		var beach_mod = <?php echo $_GET['beach_mod'] ?>;
 		var mod = <?php echo $_GET['mod'] ?>;
 		var level_mod = <?php echo $_GET['level_mod'] ?>;
