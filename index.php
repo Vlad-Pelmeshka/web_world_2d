@@ -16,7 +16,9 @@ if(!(isset($_GET['beach_mod'])) || !(isset($_GET['mod'])) || !(isset($_GET['leve
 </head>
 <body>
 	<div class="block">
-		<canvas id="game" width="<?php echo $width ?>" height="<?php echo $height ?>"></canvas>
+		<div class="canvas_block">
+			<canvas id="game" width="<?php echo $width ?>" height="<?php echo $height ?>"></canvas>
+		</div>
 		<form action="">
 			<?php
 
@@ -97,6 +99,7 @@ if(!(isset($_GET['beach_mod'])) || !(isset($_GET['mod'])) || !(isset($_GET['leve
 			<input type="submit" value="Сменить">
 		</form>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
 		// Размер одной клеточки на поле
 		var grid = <?php echo $grid ?>;
@@ -144,5 +147,40 @@ if(!(isset($_GET['beach_mod'])) || !(isset($_GET['mod'])) || !(isset($_GET['leve
 
 	</script>
 	<script src="script.js"></script>
+	<script>
+    function addOnWheel(elem, handler) {
+      if (elem.addEventListener) {
+        if ('onwheel' in document) {
+          // IE9+, FF17+
+          elem.addEventListener("wheel", handler);
+        } else if ('onmousewheel' in document) {
+          // устаревший вариант события
+          elem.addEventListener("mousewheel", handler);
+        } else {
+          // 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
+          elem.addEventListener("MozMousePixelScroll", handler);
+        }
+      } else { // IE8-
+        game.attachEvent("onmousewheel", handler);
+      }
+    }
+
+    var scale = 1;
+
+    addOnWheel(game, function(e) {
+
+      var delta = e.deltaY || e.detail || e.wheelDelta;
+
+      // отмасштабируем при помощи CSS
+      if (delta > 0) scale += 0.05;
+      else scale -= 0.05;
+
+      game.style.transform = game.style.WebkitTransform = game.style.MsTransform = 'scale(' + scale + ')';
+
+      // отменим прокрутку
+      e.preventDefault();
+    });
+
+  </script>
 </body>
 </html>
