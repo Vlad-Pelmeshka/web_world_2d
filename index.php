@@ -94,8 +94,8 @@ if(!(isset($_GET['beach_mod'])) or !(isset($_GET['mod'])) or !(isset($_GET['leve
 		var grid = <?php echo $grid ?>;
 
 		// Размер поля, задается в data.php
-		var width = <?php echo $width ?>* grid;
-		var height = <?php echo $height ?>* grid;
+		var width = <?php echo $width ?>;
+		var height = <?php echo $height ?>;
 
 		// свойства карты
 		var beach_mod = <?php echo $_GET['beach_mod'] ?>;

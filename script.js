@@ -122,6 +122,6 @@ for (var y = 0; y < he; y++) {
   			context.fillStyle = '#080';
   		// var a = arr[y][x];
 	   //  context.fillStyle = 'rgb(' + a + ',' + a + ',' + a + ')';
-	    context.fillRect(gridder(x),gridder(y), grid, grid);
+	    context.fillRect(gridder(x),gridder(y), grid-1, grid-1);
   	}
 }
