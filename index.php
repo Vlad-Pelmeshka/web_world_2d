@@ -90,6 +90,14 @@ if(!(isset($_GET['beach_mod'])) or !(isset($_GET['mod'])) or !(isset($_GET['leve
 		</form>
 	</div>
 	<script>
+		// Размер одной клеточки на поле
+		var grid = <?php echo $grid ?>;
+
+		// Размер поля, задается в data.php
+		var width = <?php echo $width ?>* grid;
+		var height = <?php echo $height ?>* grid;
+
+		// свойства карты
 		var beach_mod = <?php echo $_GET['beach_mod'] ?>;
 		var mod = <?php echo $_GET['mod'] ?>;
 		var level_mod = <?php echo $_GET['level_mod'] ?>;

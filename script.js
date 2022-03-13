@@ -1,13 +1,8 @@
 // Поле, на котором всё будет происходить, — тоже как бы переменная
 var canvas = document.getElementById('game');
-
 var context = canvas.getContext('2d');
-// Размер одной клеточки на поле — 10 пикселей
-var grid = 10;
-var width = 100* grid;
-var height = 80* grid;
 
-
+// В зависимости от мода выставляем параметры
 switch(mod){
 
 	case 0:
@@ -45,18 +40,18 @@ switch(mod){
 		break;
 }
 
-
+// изменения параметра в размер клеточки 1 -> 10
 function gridder(g){
 	return grid * g;
 }
 
+// количество клеточек в данной длине 10 -> 1
 function ungridder(g){
 	return g / grid;
 }
 
+// Матрица данных
 var arr = new Array(height);
-
-//context.fillStyle = '#11520B';
 
 for (var y = 0; y < height; y++) {
 	arr[y] = new Array(width);
@@ -64,19 +59,16 @@ for (var y = 0; y < height; y++) {
   	for (var x = 0; x < width; x++) {
 	    var nx = x/width;
 	    var ny = y/height;
-	    //console.log(nx);
-	    //var a = Math.floor(((Math.random())+(nx))*255);
+
+	    // Генерация первоначальной части карты
 	    arr[y][x] = (Math.floor(((Math.random())*x_map+(Math.max(nx,ny,0.1-nx,0.1-ny))*x_ter)*100));
-	    //var a = noise(nx, ny);
-	    //value[y][x] = noise(nx, ny);
-	    //context.fillStyle = 'rgb(' + a + ',' + a + ',' + a + ')';
-	    //context.fillRect(gridder(y), gridder(x), grid, grid);
   	}
 }
 
-
+// Тройной проход обработки карты
 for (var iu = 0; iu<3; iu++){
 
+	// Сглаживание карты
 	for (var y = 1; y < height-1; y++) {
 	  	for (var x = 1; x < width-1; x++) {
 		 	arr[y][x] = (/*arr[y-1][x-1]+arr[y-1][x+1]+arr[y+1][x-1]+arr[y+1][x+1]+*/arr[y-1][x]+arr[y][x+1]+arr[y][x-1]+arr[y+1][x])/5;
@@ -84,13 +76,15 @@ for (var iu = 0; iu<3; iu++){
 	}
 
 
-
+	// Убрать точечные водоёмы
 	for (var y = 1; y < height-1; y++) {
 	  	for (var x = 1; x < width-1; x++) {
 	  		if(arr[y-1][x] > whater && arr[y][x+1] > whater && arr[y][x-1] > whater && arr[y+1][x] > whater && arr[y][x] <= whater)
 		 	arr[y][x] = Math.floor((arr[y-1][x] + arr[y][x+1] + arr[y][x-1] + arr[y+1][x])/4)+2;
 	  	}
 	}
+
+	// Водоёмы округлить
 	for (var y = 1; y < height-1; y++) {
 	  	for (var x = 1; x < width-1; x++) {
 	  		let kol_whater=0
@@ -103,6 +97,7 @@ for (var iu = 0; iu<3; iu++){
 	  	}
 	}
 
+	// Убрать точечные острова
 	for (var y = 1; y < height-1; y++) {
 	  	for (var x = 1; x < width-1; x++) {
 	  		if(arr[y-1][x] > whater && arr[y][x+1] > whater && arr[y][x-1] > whater && arr[y+1][x] > whater && arr[y][x] <= whater)
@@ -111,6 +106,7 @@ for (var iu = 0; iu<3; iu++){
 	}
 }
 
+// Отрисовка карты
 var he = ungridder(height);
 var wi = ungridder(width);
 
