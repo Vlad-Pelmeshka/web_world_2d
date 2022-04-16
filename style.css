@@ -14,3 +14,7 @@ canvas {
 .block{
   text-align: center;
 }
+
+.canvas_block{
+  overflow: auto;
+}
