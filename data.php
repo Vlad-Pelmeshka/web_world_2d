@@ -33,15 +33,16 @@
            1 => 'С текстурами',
        );
 
-
-
-
 ?>
 <script>
 
+  // map
+
+  var arr;
 
   //размер клетки
   var grid = <?php echo $grid; ?>;
+
   //размер поля
   var width_g = <?php echo $width_g; ?>;
   var height_g = <?php echo $height_g; ?>;
@@ -55,11 +56,13 @@
   image_arr['w'] = new Image();
   image_arr['w'].src = 'image/water.jpg';
 
+  image_arr['gamer1'] = new Image();
+  image_arr['gamer1'].src = 'image/gamer.jpg';
 
-  //const image_arr = new Map([
-          //['g',  '/image/ground.png'],
-          //['w',  '/image/water.png'],
-      // ]);
+  // Gamer
+
+  var gamer_y, gamer_x;
+
 
   function gridder(g){
   	return g * grid;
@@ -73,35 +76,35 @@
 
   function addOnWheel(elem, handler) {
 
-if (elem.addEventListener) {
+    if (elem.addEventListener) {
 
-if ('onwheel' in document) {
+      if ('onwheel' in document) {
 
-// IE9+, FF17+
+      // IE9+, FF17+
 
-elem.addEventListener("wheel", handler);
+      elem.addEventListener("wheel", handler);
 
-} else if ('onmousewheel' in document) {
+      } else if ('onmousewheel' in document) {
 
-// устаревший вариант события
+      // устаревший вариант события
 
-elem.addEventListener("mousewheel", handler);
+      elem.addEventListener("mousewheel", handler);
 
-} else {
+      } else {
 
-// 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
+      // 3.5 <= Firefox < 17, более старое событие DOMMouseScroll пропустим
 
-elem.addEventListener("MozMousePixelScroll", handler);
+      elem.addEventListener("MozMousePixelScroll", handler);
 
-}
+      }
 
-} else { // IE8-
+    } else { // IE8-
 
-map.attachEvent("onmousewheel", handler);
+      map.attachEvent("onmousewheel", handler);
 
-}
+    }
 
-}
+  }
 
 
 
